@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.alibaba.cloud.ai</groupId>
-  <artifactId>spring-ai-alibaba-data-agent</artifactId>
+  <artifactId>data-agent</artifactId>
   <packaging>pom</packaging>
   <name>Spring AI Alibaba Data Agent</name>
   <version>${revision}</version>
