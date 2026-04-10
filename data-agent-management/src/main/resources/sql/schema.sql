@@ -1,5 +1,12 @@
 -- 简化的数据库初始化脚本，兼容Spring Boot SQL初始化
 
+DROP DATABASE
+    IF EXISTS `sz_data_agent`;
+
+CREATE DATABASE `sz_data_agent`;
+
+USE `sz_data_agent`;
+
 -- 智能体表
 CREATE TABLE IF NOT EXISTS agent (
     id INT NOT NULL AUTO_INCREMENT,
