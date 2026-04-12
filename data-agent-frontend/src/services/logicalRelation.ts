@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import axios from 'axios';
-import { ApiResponse } from '@/services/common';
+import axios from './axiosConfig';
+import { ApiResponse } from './common';
 
 // 逻辑外键接口定义
 export interface LogicalRelation {

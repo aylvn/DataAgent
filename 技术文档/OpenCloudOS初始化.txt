@@ -1,0 +1,159 @@
+# 更新系统到最新状态
+sudo dnf update
+
+# 安装系统防火墙(腾讯云平台也有一层防火墙,需要在腾讯云->轻量级服务器->防火墙中设置规则)
+sudo dnf install firewalld
+# 启用并启动服务
+sudo systemctl enable --now firewalld
+# 查看防火墙状态
+systemctl status firewalld
+# 开放 8065 端口
+firewall-cmd --zone=public --add-port=8065/tcp --permanent
+firewall-cmd --reload
+
+# 检查系统防火墙端口是否开启
+firewall-cmd --list-ports | grep 8065
+
+# 安装宝塔Linux面板(复制命令安装)
+https://www.bt.cn/new/download.html#instal-linux
+
+=============注意：首次打开面板浏览器将提示不安全=================
+
+ 请选择以下其中一种方式解决不安全提醒
+ 1、下载证书，地址：https://dg2.bt.cn/ssl/baota_root.pfx，双击安装,密码【www.bt.cn】
+ 2、点击【高级】-【继续访问】或【接受风险并继续】访问
+ 教程：https://www.bt.cn/bbs/thread-117246-1-1.html
+ mac用户请下载使用此证书：https://dg2.bt.cn/ssl/mac.crt
+
+========================面板账户登录信息==========================
+
+ 【云服务器】请在安全组放行 14639 端口
+ 外网ipv4面板地址: https://43.139.168.29:14639/b6fc3029
+ 内网面板地址:     https://10.1.20.12:14639/b6fc3029
+ username: 3cukllox
+ password: 08ba37c6
+
+ 浏览器访问以下链接，添加宝塔客服
+ https://www.bt.cn/new/wechat_customer
+==================================================================
+
+# 安装nginx
+
+1. 安装nginx
+找到这个文件：/etc/yum.conf ，将 exclude 这一行注释掉就行了。
+    yum install nginx
+
+2. 启动nginx
+    systemctl start nginx
+
+3. 启用nginx开机自启动
+    systemctl enable nginx
+
+4. 查看nginx进程
+    ps -ef | grep nginx
+
+5. 配置nginx
+    vim /etc/nginx/nginx.conf
+    具体配置见 nginx.conf
+
+    # 检查nginx配置是否正确
+    nginx -t
+
+    # 重新加载nginx配置
+    nginx -s reload
+
+6. 重启nginx
+    systemctl restart nginx
+
+
+# 安装JDK21
+ 1. 安装JDK21
+     dnf install java-21-openjdk
+ 2. 查看JDK21安装路径
+     rpm -ql java-21-openjdk
+     注意查看控制台实际安装的JDK版本,有可能是java-21-konajdk
+     rpm -ql java-21-konajdk
+ 3. 配置环境变量
+     vim /etc/profile
+     如果安装的是java-21-konajdk, 查看安装路径
+     cd /usr/lib/jvm 找到jdk21路径: java-21-konajdk-21.0.10-1.oc9
+     在文件末尾添加以下内容
+     export JAVA_HOME=/usr/lib/jvm/java-21-konajdk-21.0.10-1.oc9
+     export PATH=$JAVA_HOME/bin:$PATH
+
+     KonaJDK的轻量级安装可能不包含完整的开发工具集。建议安装对应的devel包（如java-21-konajdk-devel），该包通常包含这些调试和监控工具。执行命令：
+
+     yum install java-21-konajdk-devel
+
+     打印JAVA_HOME
+     echo $JAVA_HOME
+
+ 4. 使环境变量生效
+     source /etc/profile
+ 5. 查看JDK21版本
+     java -version
+
+# 创建微服务部署目录
+     cd /usr/local
+     mkdir lnxst
+     chmod 777 lnxst
+     cd lnxst
+     mkdir sz-water
+
+# 安装Redis
+1. 安装Redis
+    dnf install redis
+2. 启动Redis
+    systemctl start redis
+3. 查看Redis状态
+    systemctl status redis
+4. 配置Redis开机自启
+    systemctl enable redis
+5. 可选 Redis访问限制
+    # 备份原配置文件
+    cp -p /etc/redis/redis.conf /etc/redis/redis.conf.bak
+    # 修改绑定配置,允许所有IP访问
+    sed -i 's/bind 127.0.0.1 -::1/bind 0.0.0.0 -::1/g' /etc/redis/redis.conf
+    # 修改配置文件,关闭保护模式
+    sed -i 's/protected-mode yes/protected-mode no/g' /etc/redis/redis.conf
+    # 重启服务
+    systemctl restart redis
+
+
+# 安装MySQL
+1.更新 dnf 系统包：确保所有软件包为最新状态，避免依赖冲突
+    dnf update -y
+2.卸载冲突软件包：若系统预装 MariaDB，需先卸载
+    dnf remove -y mariadb*
+3.禁用系统默认的MySQL 模块: 防止仓库冲突
+    dnf module disable -y mysql
+4.下载 MySQL 的 RPM
+    wget https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+5.安装仓库 RPM 包
+    dnf install -y mysql84-community-release-el9-1.noarch.rpm
+6.验证仓库启用状态
+    dnf repolist enabled | grep mysql
+7.安装 MySQL Server
+    dnf install -y mysql-community-server --nogpgcheck
+8.启动 MySQL 服务
+    systemctl start mysqld
+9.设置开机自启
+    systemctl enable mysqld
+10.检查服务状态
+    systemctl status mysqld
+11.获取临时 root 密码
+    grep 'temporary password' /var/log/mysqld.log
+12.登录MySQL
+   mysql -u root -p
+13.修改密码
+    ALTER USER 'root'@'localhost' IDENTIFIED BY 'Lxt1234++';
+    FLUSH PRIVILEGES;
+14.创建远程用户（允许被远程连接）
+    # '%' 表示允许当前用户远程访问
+    CREATE USER 'data'@'%' IDENTIFIED BY 'Lxt1234++';
+    # 赋予用户所有表的所有权限（可以按需分配权限）
+    GRANT ALL PRIVILEGES ON *.* TO 'data'@'%' WITH GRANT OPTION;
+    # 刷新权限生效
+    FLUSH PRIVILEGES;
+15.修改配置文件
+    vim /etc/my.cnf

@@ -106,7 +106,7 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-      
+
         <!-- Hive JDBC 驱动 -->
         <dependency>
             <groupId>org.apache.hive</groupId>
@@ -161,7 +161,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-      
+
         <!-- Swagger/OpenAPI 3 with WebFlux (no MVC) -->
         <dependency>
             <groupId>org.springdoc</groupId>

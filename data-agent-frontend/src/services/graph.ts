@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { API_BASE_URL } from './axiosConfig';
+
 export interface GraphRequest {
   agentId: string;
   threadId?: string;
@@ -43,8 +45,6 @@ export enum TextType {
   RESULT_SET = 'RESULT_SET',
   TEXT = 'TEXT',
 }
-
-const API_BASE_URL = '/api';
 
 class GraphService {
   /**

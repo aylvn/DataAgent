@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import axios from 'axios';
-import type { ApiResponse } from './common';
+import axios from './axiosConfig';
+import { ApiResponse } from './common';
 
 export interface ModelConfig {
   id?: number;

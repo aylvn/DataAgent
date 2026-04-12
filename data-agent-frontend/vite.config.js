@@ -42,8 +42,9 @@ export default defineConfig({
     },
     historyApiFallback: true,
   },
+  base: '/ai-agent/',
   build: {
-    outDir: 'dist',
+    outDir: 'dist/ai-agent',
     assetsDir: 'assets',
   },
 });

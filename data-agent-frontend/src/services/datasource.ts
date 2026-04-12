@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import axios from 'axios';
-import { ApiResponse } from '@/services/common';
+import axios from './axiosConfig';
+import { ApiResponse } from './common';
 
 export interface Datasource {
   id?: number;

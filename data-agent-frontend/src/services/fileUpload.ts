@@ -19,6 +19,8 @@
  * 封装所有业务相关的API调用
  */
 
+import { API_BASE_URL } from './axiosConfig';
+
 interface UploadResponse {
   success: boolean;
   message?: string;
@@ -32,7 +34,7 @@ export const fileUploadApi = {
     const formData = new FormData();
     formData.append('file', file);
 
-    const url = '/api/upload/avatar';
+    const url = `${API_BASE_URL}/upload/avatar`;
     return fetch(url, {
       method: 'POST',
       body: formData,

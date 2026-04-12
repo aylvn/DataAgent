@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import axios from 'axios';
+import axios from './axiosConfig';
 import { ApiResponse } from './common';
 
 export interface Agent {
