@@ -34,7 +34,7 @@ export interface Agent {
   humanReviewEnabled?: number | boolean; // 0 or 1, default is 0
 }
 
-const API_BASE_URL = '/api/agent';
+const API_BASE_URL = '/agent';
 
 export interface AgentApiKeyResponse {
   apiKey: string | null;

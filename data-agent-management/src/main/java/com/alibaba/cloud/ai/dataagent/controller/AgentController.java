@@ -39,7 +39,7 @@ import org.springframework.web.server.ResponseStatusException;
 /** Agent Management Controller */
 @Slf4j
 @RestController
-@RequestMapping("/api/agent")
+@RequestMapping("/agent")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class AgentController {

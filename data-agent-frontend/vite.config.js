@@ -30,6 +30,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:8065',
         changeOrigin: true,
+        rewrite: (path) => path.replace(/\/api/, ''),
       },
       '/nl2sql': {
         target: 'http://localhost:8065',

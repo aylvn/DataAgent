@@ -29,7 +29,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/model-config")
+@RequestMapping("/model-config")
 public class ModelConfigController {
 
 	private final ModelConfigDataService modelConfigDataService;

@@ -45,7 +45,7 @@ interface UpdateBusinessKnowledgeDTO {
   agentId: number;
 }
 
-const API_BASE_URL = '/api/business-knowledge';
+const API_BASE_URL = '/business-knowledge';
 
 class BusinessKnowledgeService {
   /**

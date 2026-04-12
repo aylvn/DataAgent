@@ -32,7 +32,7 @@ export interface LogicalRelation {
   updatedTime?: string;
 }
 
-const API_BASE_URL = '/api/datasource';
+const API_BASE_URL = '/datasource';
 
 class LogicalRelationService {
   // 获取指定数据源的逻辑外键列表

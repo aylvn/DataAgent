@@ -33,7 +33,7 @@ import java.util.Map;
  * @author Makoto
  */
 @RestController
-@RequestMapping("/api/prompt-config")
+@RequestMapping("/prompt-config")
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class PromptConfigController {
 

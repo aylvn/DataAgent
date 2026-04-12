@@ -66,7 +66,7 @@ interface BatchImportResult {
   errors: string[];
 }
 
-const API_BASE_URL = '/api/semantic-model';
+const API_BASE_URL = '/semantic-model';
 
 class SemanticModelService {
   /**

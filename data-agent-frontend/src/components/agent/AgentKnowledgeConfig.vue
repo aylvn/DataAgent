@@ -409,7 +409,7 @@
     UploadFilled,
     Warning,
   } from '@element-plus/icons-vue';
-  import axios from 'axios';
+
   import agentKnowledgeService, {
     AgentKnowledge,
     AgentKnowledgeQueryDTO,
@@ -702,18 +702,21 @@
               }
             }
 
-            const response = await axios.post('/api/agent-knowledge/create', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            });
+            // 使用 agentKnowledgeService 创建知识（支持文件上传）
+            const file = fileList.value.length > 0 ? fileList.value[0].raw : undefined;
+            await agentKnowledgeService.createWithFile(
+              props.agentId,
+              knowledgeForm.value.title,
+              knowledgeForm.value.type,
+              knowledgeForm.value.question,
+              knowledgeForm.value.content,
+              file,
+              knowledgeForm.value.splitterType
+            );
 
-            if (response.data.success) {
-              ElMessage.success('创建成功');
-            } else {
-              ElMessage.error(response.data.message || '创建失败');
-              return;
-            }
+            ElMessage.success('创建成功');
+            
+            
           }
 
           dialogVisible.value = false;

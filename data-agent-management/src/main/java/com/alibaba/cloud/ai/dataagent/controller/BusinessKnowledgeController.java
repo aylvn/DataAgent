@@ -30,7 +30,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/business-knowledge")
+@RequestMapping("/business-knowledge")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class BusinessKnowledgeController {

@@ -259,6 +259,7 @@
 </template>
 
 <script>
+  import promptConfigService from '@/services/promptConfig';
   export default {
     name: 'AgentPromptConfig',
     props: {
@@ -326,18 +327,12 @@
       async loadOptimizationConfigs() {
         try {
           this.loading = true;
-          const query = this.agentId ? `?agentId=${this.agentId}` : '';
-          const response = await fetch(
-            `/api/prompt-config/list-by-type/${this.promptType}${query}`,
-          );
-          const result = await response.json();
-          if (result.success) {
-            this.optimizationConfigs = result.data || [];
-            // 如果配置列表为空，自动关闭批量操作面板
-            if (this.optimizationConfigs.length === 0) {
-              this.showBatchActions = false;
-              this.selectedConfigs = [];
-            }
+          const agentId = this.agentId ? Number(this.agentId) : undefined;
+          this.optimizationConfigs = await promptConfigService.listByType(this.promptType, agentId);
+          // 如果配置列表为空，自动关闭批量操作面板
+          if (this.optimizationConfigs.length === 0) {
+            this.showBatchActions = false;
+            this.selectedConfigs = [];
           }
         } catch (error) {
           console.error('加载优化配置失败:', error);
@@ -363,22 +358,10 @@
             configData.id = this.editingConfig.id;
           }
 
-          const response = await fetch('/api/prompt-config/save', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(configData),
-          });
-
-          const result = await response.json();
-          if (result.success) {
-            this.showMessage(result.message || '保存成功', 'success');
-            this.closeDialog();
-            this.loadOptimizationConfigs();
-          } else {
-            this.showMessage(result.message || '保存失败', 'error');
-          }
+          await promptConfigService.save(configData);
+          this.showMessage('保存成功', 'success');
+          this.closeDialog();
+          this.loadOptimizationConfigs();
         } catch (error) {
           console.error('保存配置失败:', error);
           this.showMessage('保存配置失败', 'error');
@@ -387,19 +370,13 @@
 
       async toggleConfig(config) {
         try {
-          const url = config.enabled
-            ? `/api/prompt-config/${config.id}/disable`
-            : `/api/prompt-config/${config.id}/enable`;
-
-          const response = await fetch(url, { method: 'POST' });
-          const result = await response.json();
-
-          if (result.success) {
-            this.showMessage(result.message, 'success');
-            this.loadOptimizationConfigs();
+          if (config.enabled) {
+            await promptConfigService.disable(config.id);
           } else {
-            this.showMessage(result.message, 'error');
+            await promptConfigService.enable(config.id);
           }
+          this.showMessage('操作成功', 'success');
+          this.loadOptimizationConfigs();
         } catch (error) {
           console.error('切换配置状态失败:', error);
           this.showMessage('操作失败', 'error');
@@ -412,19 +389,11 @@
         }
 
         try {
-          const response = await fetch(`/api/prompt-config/${configId}`, {
-            method: 'DELETE',
-          });
-          const result = await response.json();
-
-          if (result.success) {
-            this.showMessage(result.message, 'success');
-            this.loadOptimizationConfigs();
-            // 删除后从选中列表中移除
-            this.selectedConfigs = this.selectedConfigs.filter(id => id !== configId);
-          } else {
-            this.showMessage(result.message, 'error');
-          }
+          await promptConfigService.delete(configId);
+          this.showMessage('删除成功', 'success');
+          this.loadOptimizationConfigs();
+          // 删除后从选中列表中移除
+          this.selectedConfigs = this.selectedConfigs.filter(id => id !== configId);
         } catch (error) {
           console.error('删除配置失败:', error);
           this.showMessage('删除配置失败', 'error');
@@ -459,22 +428,10 @@
         if (this.selectedConfigs.length === 0) return;
 
         try {
-          const response = await fetch('/api/prompt-config/batch-enable', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.selectedConfigs),
-          });
-
-          const result = await response.json();
-          if (result.success) {
-            this.showMessage(result.message, 'success');
-            this.loadOptimizationConfigs();
-            this.clearSelection();
-          } else {
-            this.showMessage(result.message, 'error');
-          }
+          await promptConfigService.batchEnable(this.selectedConfigs);
+          this.showMessage('批量启用成功', 'success');
+          this.loadOptimizationConfigs();
+          this.clearSelection();
         } catch (error) {
           console.error('批量启用失败:', error);
           this.showMessage('批量启用失败', 'error');
@@ -485,22 +442,10 @@
         if (this.selectedConfigs.length === 0) return;
 
         try {
-          const response = await fetch('/api/prompt-config/batch-disable', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.selectedConfigs),
-          });
-
-          const result = await response.json();
-          if (result.success) {
-            this.showMessage(result.message, 'success');
-            this.loadOptimizationConfigs();
-            this.clearSelection();
-          } else {
-            this.showMessage(result.message, 'error');
-          }
+          await promptConfigService.batchDisable(this.selectedConfigs);
+          this.showMessage('批量禁用成功', 'success');
+          this.loadOptimizationConfigs();
+          this.clearSelection();
         } catch (error) {
           console.error('批量禁用失败:', error);
           this.showMessage('批量禁用失败', 'error');
@@ -535,25 +480,10 @@
 
       async updatePriority() {
         try {
-          const response = await fetch(
-            `/api/prompt-config/${this.editingPriorityConfig.id}/priority`,
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ priority: this.priorityForm.priority }),
-            },
-          );
-
-          const result = await response.json();
-          if (result.success) {
-            this.showMessage('优先级更新成功', 'success');
-            this.loadOptimizationConfigs();
-            this.closePriorityDialog();
-          } else {
-            this.showMessage(result.message, 'error');
-          }
+          await promptConfigService.updatePriority(this.editingPriorityConfig.id, this.priorityForm.priority);
+          this.showMessage('优先级更新成功', 'success');
+          this.loadOptimizationConfigs();
+          this.closePriorityDialog();
         } catch (error) {
           console.error('更新优先级失败:', error);
           this.showMessage('更新优先级失败', 'error');

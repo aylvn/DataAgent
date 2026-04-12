@@ -127,6 +127,9 @@
   import { useRouter, useRoute } from 'vue-router';
   import { ElMessage, ElMessageBox } from 'element-plus';
   import ChatService from '../../services/chat';
+  
+  // 获取 API_BASE_URL 环境变量
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api/agent';
   import {
     Plus,
     Delete,
@@ -231,7 +234,7 @@
         if (sessionEventSource.value) {
           sessionEventSource.value.close();
         }
-        const source = new EventSource(`/api/agent/${currentAgentId}/sessions/stream`);
+        const source = new EventSource(`${API_BASE_URL}/agent/${currentAgentId}/sessions/stream`);
         source.addEventListener('title-updated', event => {
           try {
             const data = JSON.parse((event as MessageEvent<string>).data) as SessionUpdateEvent;

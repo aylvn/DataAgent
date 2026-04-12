@@ -56,7 +56,7 @@ export interface DatasourceType {
   displayName: string;
 }
 
-const API_BASE_URL = '/api/datasource';
+const API_BASE_URL = '/datasource';
 
 class DatasourceService {
   // 1. 获取所有数据源列表

@@ -38,7 +38,7 @@ public class OpenApiConfig {
 		return GroupedOpenApi.builder()
 			.group("data-agent")
 			.packagesToScan("com.alibaba.cloud.ai.dataagent.controller")
-			.pathsToMatch("/api/**")
+			.pathsToMatch("/**")
 			.build();
 	}
 

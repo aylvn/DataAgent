@@ -28,7 +28,6 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 @Slf4j
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
 @RequiredArgsConstructor
 public class SessionEventController {
 

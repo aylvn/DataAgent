@@ -83,7 +83,7 @@ class FileAndSerializationSecurityTest {
 
 		FileUploadController controller = new FileUploadController(buildFileStorageProperties(),
 				new NoopFileStorageService());
-		MockServerHttpRequest request = MockServerHttpRequest.get("/api/upload/uploads/avatars/ok.txt").build();
+		MockServerHttpRequest request = MockServerHttpRequest.get("/upload/uploads/avatars/ok.txt").build();
 
 		ResponseEntity<byte[]> response = controller.getFile(request);
 
@@ -98,7 +98,7 @@ class FileAndSerializationSecurityTest {
 
 		FileUploadController controller = new FileUploadController(buildFileStorageProperties(),
 				new NoopFileStorageService());
-		MockServerHttpRequest request = MockServerHttpRequest.get("/api/upload/uploads/../secret.txt").build();
+		MockServerHttpRequest request = MockServerHttpRequest.get("/upload/uploads/../secret.txt").build();
 
 		ResponseEntity<byte[]> response = controller.getFile(request);
 

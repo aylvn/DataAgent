@@ -48,7 +48,7 @@ import org.springframework.web.server.ResponseStatusException;
 // todo: 不要吞掉所有异常，可以直接抛出，写一个Advice拦截异常并做日志
 @Slf4j
 @RestController
-@RequestMapping("/api/datasource")
+@RequestMapping("/datasource")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class DatasourceController {

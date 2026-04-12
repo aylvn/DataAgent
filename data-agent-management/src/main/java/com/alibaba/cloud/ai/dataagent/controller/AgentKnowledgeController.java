@@ -42,7 +42,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/agent-knowledge")
+@RequestMapping("/agent-knowledge")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class AgentKnowledgeController {

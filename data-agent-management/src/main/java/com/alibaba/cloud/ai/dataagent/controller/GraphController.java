@@ -38,7 +38,6 @@ import static com.alibaba.cloud.ai.dataagent.constant.Constant.STREAM_EVENT_ERRO
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "*")
-@RequestMapping("/api")
 public class GraphController {
 
 	private final GraphService graphService;

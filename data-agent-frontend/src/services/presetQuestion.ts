@@ -31,7 +31,7 @@ interface PresetQuestionDTO {
   isActive?: boolean;
 }
 
-const API_BASE_URL = '/api/agent';
+const API_BASE_URL = '/agent';
 
 class PresetQuestionService {
   /**

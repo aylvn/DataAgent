@@ -39,7 +39,7 @@ export interface ChatMessage {
   titleNeeded?: boolean;
 }
 
-const API_BASE_URL = '/api';
+const API_BASE_URL = '';
 
 class ChatService {
   /**

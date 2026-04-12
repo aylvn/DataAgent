@@ -47,7 +47,7 @@ import java.util.List;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/semantic-model")
+@RequestMapping("/semantic-model")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class SemanticModelController {

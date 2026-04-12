@@ -43,7 +43,7 @@ import reactor.core.publisher.Mono;
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/upload")
+@RequestMapping("/upload")
 @CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class FileUploadController {

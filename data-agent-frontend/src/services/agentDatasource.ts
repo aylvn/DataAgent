@@ -28,7 +28,7 @@ interface UpdateDatasourceTablesDto {
   tables?: string[];
 }
 
-const BASE_URL_FUNC = (agentId: string) => `/api/agent/${agentId}/datasources`;
+const BASE_URL_FUNC = (agentId: string) => `/agent/${agentId}/datasources`;
 
 class AgentDatasourceService {
   /**

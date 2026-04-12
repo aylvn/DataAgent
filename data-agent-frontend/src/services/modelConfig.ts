@@ -42,7 +42,7 @@ export interface ModelCheckReady {
   ready: boolean;
 }
 
-const API_BASE_URL = '/api/model-config';
+const API_BASE_URL = '/model-config';
 
 class ModelConfigService {
   /**

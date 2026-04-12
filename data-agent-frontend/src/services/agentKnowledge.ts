@@ -58,7 +58,7 @@ export interface PageResult<T> {
   message?: string;
 }
 
-const API_BASE_URL = '/api/agent-knowledge';
+const API_BASE_URL = '/agent-knowledge';
 
 class AgentKnowledgeService {
   /**
@@ -117,6 +117,31 @@ class AgentKnowledgeService {
     const response = await axios.post<{ success: boolean; data: AgentKnowledge }>(
       `${API_BASE_URL}/create`,
       knowledge,
+    );
+    return response.data.data;
+  }
+
+  /**
+   * 创建知识（支持文件上传）
+   */
+  async createWithFile(agentId: number, title: string, type: string, question?: string, content?: string, file?: File, splitterType?: string): Promise<AgentKnowledge> {
+    const formData = new FormData();
+    formData.append('agentId', agentId.toString());
+    formData.append('title', title);
+    formData.append('type', type);
+    if (question) formData.append('question', question);
+    if (content) formData.append('content', content);
+    if (file) formData.append('file', file);
+    if (splitterType) formData.append('splitterType', splitterType);
+
+    const response = await axios.post<{ success: boolean; data: AgentKnowledge }>(
+      `${API_BASE_URL}/create`,
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
     );
     return response.data.data;
   }
