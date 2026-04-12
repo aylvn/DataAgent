@@ -518,7 +518,7 @@
       });
       const showReportFullscreen = ref(false);
       const fullscreenReportContent = ref('');
-      const inputControlsCollapsed = ref(false);
+      const inputControlsCollapsed = ref(true);
 
       // 监听NL2SQL开关变化
       const handleNl2sqlOnlyChange = (value: boolean) => {
