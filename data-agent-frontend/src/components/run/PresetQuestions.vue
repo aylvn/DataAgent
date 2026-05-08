@@ -109,7 +109,7 @@
 
 <style scoped>
   .preset-questions-wrapper {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
 
   .preset-questions-container {

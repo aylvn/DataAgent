@@ -1,1 +1,1 @@
-$env:JAVA_HOME="C:\Program Files\Java\jdk-21"; mvn clean package -U -s maven-settings.xml -DskipTests
+$env:JAVA_HOME="C:\Program Files\Java\jdk-21"; & mvn clean package -U -s maven-settings.xml -DskipTests

@@ -45,6 +45,7 @@ under the License.
  |-->
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:wagon="http://maven.apache.org/WAGON/1.0.0"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <!-- localRepository
      | The path to the local repository maven will use to store artifacts.
@@ -157,9 +158,9 @@ under the License.
          -->
         <mirror>
             <id>nexus-aliyun</id>
-            <mirrorOf>central</mirrorOf>
+            <mirrorOf>*</mirrorOf>
             <name>Nexus aliyun</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <url>https://maven.aliyun.com/repository/public</url>
         </mirror>
     </mirrors>
 
@@ -225,7 +226,21 @@ under the License.
                 <maven.compiler.target>21</maven.compiler.target>
                 <maven.compiler.release>21</maven.compiler.release>
                 <maven.compiler.executable>C:\Program Files\Java\jdk-21\bin\javac</maven.compiler.executable>
+                <maven.wagon.http.ssl.insecure>true</maven.wagon.http.ssl.insecure>
+                <maven.wagon.http.ssl.allowall>true</maven.wagon.http.ssl.allowall>
             </properties>
+            <repositories>
+                <repository>
+                    <id>central</id>
+                    <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+                    <releases>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </releases>
+                    <snapshots>
+                        <checksumPolicy>ignore</checksumPolicy>
+                    </snapshots>
+                </repository>
+            </repositories>
         </profile>
         <!--
          | Here is another profile, activated by the system property 'target-env' with a value of 'dev',

@@ -518,7 +518,7 @@
       });
       const showReportFullscreen = ref(false);
       const fullscreenReportContent = ref('');
-      const inputControlsCollapsed = ref(false);
+      const inputControlsCollapsed = ref(true);
 
       // 监听NL2SQL开关变化
       const handleNl2sqlOnlyChange = (value: boolean) => {
@@ -1723,7 +1723,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
+    padding: 0px 0px 8px 0px;
     cursor: pointer;
     user-select: none;
     color: #606266;
