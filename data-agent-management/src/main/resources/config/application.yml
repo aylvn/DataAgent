@@ -1,5 +1,8 @@
 server:
   port: 8065
+  tomcat:
+    connection-timeout: 300000
+    async-timeout: 300000
 
 springdoc:
   api-docs:
@@ -19,7 +22,7 @@ spring:
     allow-circular-references: true
   # 数据库配置
   datasource:
-    url: ${DATA_AGENT_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/sz_data_agent?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai}
+    url: ${DATA_AGENT_DATASOURCE_URL:jdbc:mysql://127.0.0.1:3306/sz_data_agent?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai&connectTimeout=300000&socketTimeout=300000}
     username: ${DATA_AGENT_DATASOURCE_USERNAME:data}
     password: ${DATA_AGENT_DATASOURCE_PASSWORD:1234}
     driver-class-name: com.mysql.cj.jdbc.Driver
