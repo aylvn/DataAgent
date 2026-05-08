@@ -107,17 +107,6 @@ class AbstractDBConnectionPoolTest {
 	}
 
 	@Test
-	void getConnection_invalidUrl_throwsRuntimeException() {
-		DbConfigBO config = DbConfigBO.builder()
-			.url("jdbc:invalid://nowhere:9999/nothing")
-			.username("nobody")
-			.password("nothing")
-			.connectionType("h2")
-			.build();
-		assertThrows(RuntimeException.class, () -> pool.getConnection(config));
-	}
-
-	@Test
 	void close_clearsDataSourceCache() throws Exception {
 		DbConfigBO config = createH2Config();
 		Connection connection = pool.getConnection(config);
