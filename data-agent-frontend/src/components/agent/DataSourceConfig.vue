@@ -81,7 +81,7 @@
                     :span="6"
                     style="margin-bottom: 10px"
                   >
-                    <el-checkbox :label="table" size="large">
+                    <el-checkbox :value="table" size="large">
                       {{ table }}
                     </el-checkbox>
                   </el-col>
@@ -815,6 +815,19 @@
 
   export default defineComponent({
     name: 'AgentDataSourceConfig',
+    components: {
+      Plus,
+      UploadFilled,
+      Loading,
+      FolderOpened,
+      Lock,
+      Connection,
+      Link,
+      CirclePlus,
+      Check,
+      Right,
+      Edit,
+    },
     props: {
       agentId: {
         type: Number,

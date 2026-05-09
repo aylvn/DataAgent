@@ -98,16 +98,16 @@
               ref="sessionTitleInputRef"
             />
             <div class="session-actions">
-              <el-button type="text" size="small" @click.stop="startEditSessionTitle(session)">
+              <el-button link size="small" @click.stop="startEditSessionTitle(session)">
                 <el-icon><Edit /></el-icon>
               </el-button>
-              <el-button type="text" size="small" @click.stop="togglePinSession(session)">
+              <el-button link size="small" @click.stop="togglePinSession(session)">
                 <el-icon>
                   <StarFilled v-if="session.isPinned" />
                   <Star v-else />
                 </el-icon>
               </el-button>
-              <el-button type="text" size="small" @click.stop="deleteSession(session)">
+              <el-button link size="small" @click.stop="deleteSession(session)">
                 <el-icon><Delete /></el-icon>
               </el-button>
             </div>

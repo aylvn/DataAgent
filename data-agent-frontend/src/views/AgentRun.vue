@@ -1710,7 +1710,7 @@
   .input-area {
     background: white;
     border-radius: 8px;
-    padding: 16px;
+    padding: 12px 16px;
     border: 1px solid #e8e8e8;
   }
 
@@ -1781,7 +1781,7 @@
   .input-container {
     display: flex;
     gap: 12px;
-    align-items: flex-end;
+    align-items: center;
   }
 
   @keyframes spin {
