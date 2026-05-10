@@ -229,16 +229,46 @@ public class AgentVectorStoreServiceImpl implements AgentVectorStoreService {
 
 	@Override
 	public List<Document> getDocumentsOnlyByFilter(Filter.Expression filterExpression, Integer topK) {
+		log.debug("===== 开始执行 getDocumentsOnlyByFilter =====");
+		log.debug("输入参数 - filterExpression: {}, topK: {}", filterExpression, topK);
+
 		Assert.notNull(filterExpression, "filterExpression cannot be null.");
-		if (topK == null)
+		
+		// 设置默认 topK
+		if (topK == null) {
 			topK = dataAgentProperties.getVectorStore().getDefaultTopkLimit();
+			log.debug("topK 为 null，使用默认值: {}", topK);
+		}
+		log.debug("实际使用的 topK: {}", topK);
+
+		// 构建搜索请求
+		log.debug("构建 SearchRequest - query: {}, topK: {}, similarityThreshold: 0.0", DEFAULT);
 		SearchRequest searchRequest = SearchRequest.builder()
 			.query(DEFAULT)
 			.topK(topK)
 			.filterExpression(filterExpression)
 			.similarityThreshold(0.0)
 			.build();
-		return vectorStore.similaritySearch(searchRequest);
+
+		// 执行向量检索
+		log.debug("调用 vectorStore.similaritySearch() 执行过滤检索...");
+		List<Document> result = vectorStore.similaritySearch(searchRequest);
+
+		// 输出检索结果
+		log.debug("检索完成，返回文档数量: {}", result.size());
+		if (!result.isEmpty()) {
+			log.debug("返回的文档详情:");
+			for (int i = 0; i < result.size(); i++) {
+				Document doc = result.get(i);
+				log.debug("  [{}/{}] id: {}, metadata: {}",
+					i + 1, result.size(),
+					doc.getId(),
+					doc.getMetadata());
+			}
+		}
+		log.debug("===== getDocumentsOnlyByFilter 执行完成 =====");
+
+		return result;
 	}
 
 	@Override
@@ -251,6 +281,35 @@ public class AgentVectorStoreServiceImpl implements AgentVectorStoreService {
 			.similarityThreshold(0.0)
 			.build());
 		return !docs.isEmpty();
+	}
+
+	@Override
+	public List<Document> searchByRequest(SearchRequest searchRequest) {
+		log.debug("===== 开始执行 searchByRequest =====");
+		log.debug("SearchRequest - query: {}, topK: {}, similarityThreshold: {}, filterExpression: {}",
+			searchRequest.getQuery(),
+			searchRequest.getTopK(),
+			searchRequest.getSimilarityThreshold(),
+			searchRequest.getFilterExpression());
+
+		log.debug("调用 vectorStore.similaritySearch() 执行向量检索...");
+		List<Document> result = vectorStore.similaritySearch(searchRequest);
+
+		log.debug("检索完成，返回文档数量: {}", result.size());
+		if (!result.isEmpty()) {
+			log.debug("返回的文档详情:");
+			for (int i = 0; i < result.size(); i++) {
+				Document doc = result.get(i);
+				log.debug("  [{}/{}] id: {}, name: {}, distance: {}",
+					i + 1, result.size(),
+					doc.getId(),
+					doc.getMetadata().get("name"),
+					doc.getMetadata().get("distance"));
+			}
+		}
+		log.debug("===== searchByRequest 执行完成 =====");
+
+		return result;
 	}
 
 }

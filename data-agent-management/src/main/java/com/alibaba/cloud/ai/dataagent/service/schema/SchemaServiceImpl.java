@@ -285,20 +285,32 @@ public class SchemaServiceImpl implements SchemaService {
 
 	@Override
 	public List<Document> getTableDocumentsByDatasource(Integer datasourceId, String query) {
+		log.debug("===== 开始召回数据库表文档 =====");
+		log.debug("输入参数 - datasourceId: {}, query: {}", datasourceId, query);
+
 		Assert.notNull(datasourceId, "datasourceId cannot be null");
 		int tableTopK = dataAgentProperties.getVectorStore().getTableTopkLimit();
 		double tableThreshold = dataAgentProperties.getVectorStore().getTableSimilarityThreshold();
 
+		log.debug("配置参数 - tableTopK: {}, tableThreshold: {}", tableTopK, tableThreshold);
+
 		// 构建过滤表达式
+		log.debug("开始构建过滤表达式...");
 		FilterExpressionBuilder b = new FilterExpressionBuilder();
 		List<Filter.Expression> conditions = new ArrayList<>();
 
-		conditions.add(b.eq(Constant.DATASOURCE_ID, datasourceId.toString()).build());
-		conditions.add(b.eq(DocumentMetadataConstant.VECTOR_TYPE, DocumentMetadataConstant.TABLE).build());
+		Filter.Expression datasourceCondition = b.eq(Constant.DATASOURCE_ID, datasourceId.toString()).build();
+		Filter.Expression typeCondition = b.eq(DocumentMetadataConstant.VECTOR_TYPE, DocumentMetadataConstant.TABLE).build();
+		conditions.add(datasourceCondition);
+		conditions.add(typeCondition);
+
+		log.debug("过滤条件 - DATASOURCE_ID: {}, VECTOR_TYPE: {}", datasourceId, DocumentMetadataConstant.TABLE);
 
 		Filter.Expression filterExpression = DynamicFilterService.combineWithAnd(conditions);
+		log.debug("过滤表达式构建完成");
 
 		// 执行向量检索
+		log.debug("构建 SearchRequest - query: {}, topK: {}, threshold: {}", query, tableTopK, tableThreshold);
 		SearchRequest searchRequest = SearchRequest.builder()
 			.query(query)
 			.topK(tableTopK)
@@ -306,7 +318,24 @@ public class SchemaServiceImpl implements SchemaService {
 			.filterExpression(filterExpression)
 			.build();
 
-		return agentVectorStoreService.getDocumentsOnlyByFilter(filterExpression, tableTopK);
+		log.debug("开始调用 agentVectorStoreService.searchByRequest() 执行向量检索...");
+		List<Document> result = agentVectorStoreService.searchByRequest(searchRequest);
+
+		log.debug("检索完成，返回文档数量: {}", result.size());
+		if (!result.isEmpty()) {
+			log.debug("返回的表文档详情:");
+			for (int i = 0; i < result.size(); i++) {
+				Document doc = result.get(i);
+				log.debug("  [{}/{}] id: {}, name: {}, metadata: {}",
+					i + 1, result.size(),
+					doc.getId(),
+					doc.getMetadata().get("name"),
+					doc.getMetadata());
+			}
+		}
+		log.debug("===== 召回数据库表文档完成 =====");
+
+		return result;
 	}
 
 	private List<String> getMissingTableNamesWithForeignKeySet(List<Document> tableDocuments,
