@@ -79,22 +79,48 @@ public class DocumentConverterUtil {
 
 	/**
 	 * Converts a table info object to a Document for vector storage.
+	 * The document text includes table description and column information to enhance semantic recall.
 	 * @param datasourceId the datasource ID
 	 * @param tableInfoBO the table information to convert
 	 * @return Document object with table metadata
 	 */
 	public static Document convertTableToDocument(Integer datasourceId, TableInfoBO tableInfoBO) {
-		String text = StringUtils.isBlank(tableInfoBO.getDescription()) ? tableInfoBO.getName()
-				: tableInfoBO.getDescription();
+		// 构建更丰富的文本内容，包含表名/描述和列信息，增强语义召回能力
+		StringBuilder textBuilder = new StringBuilder();
+		
+		// 使用描述或表名作为基础文本
+		String description = tableInfoBO.getDescription();
+		if (StringUtils.isNotBlank(description)) {
+			textBuilder.append(description);
+		} else {
+			textBuilder.append(tableInfoBO.getName());
+		}
+		
+		// 添加列信息作为补充，增强语义召回能力
+		List<ColumnInfoBO> columns = tableInfoBO.getColumns();
+		if (columns != null && !columns.isEmpty()) {
+			textBuilder.append("，包含字段：");
+			for (int i = 0; i < columns.size(); i++) {
+				ColumnInfoBO column = columns.get(i);
+				if (i > 0) {
+					textBuilder.append("、");
+				}
+				textBuilder.append(column.getName());
+				if (StringUtils.isNotBlank(column.getDescription())) {
+					textBuilder.append("(").append(column.getDescription()).append(")");
+				}
+			}
+		}
+		
 		Map<String, Object> metadata = new HashMap<>();
 		metadata.put("schema", Optional.ofNullable(tableInfoBO.getSchema()).orElse(""));
 		metadata.put("name", tableInfoBO.getName());
-		metadata.put("description", Optional.ofNullable(tableInfoBO.getDescription()).orElse(""));
+		metadata.put("description", Optional.ofNullable(description).orElse(""));
 		metadata.put("foreignKey", Optional.ofNullable(tableInfoBO.getForeignKey()).orElse(""));
 		metadata.put("primaryKey", Optional.ofNullable(tableInfoBO.getPrimaryKeys()).orElse(new ArrayList<>()));
 		metadata.put(DocumentMetadataConstant.VECTOR_TYPE, DocumentMetadataConstant.TABLE);
 		metadata.put(Constant.DATASOURCE_ID, datasourceId.toString());
-		return new Document(text, metadata);
+		return new Document(textBuilder.toString(), metadata);
 	}
 
 	public static List<Document> convertTablesToDocuments(Integer datasourceId, List<TableInfoBO> tables) {
