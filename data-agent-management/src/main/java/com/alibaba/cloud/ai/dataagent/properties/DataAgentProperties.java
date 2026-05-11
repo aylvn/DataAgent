@@ -43,12 +43,12 @@ public class DataAgentProperties {
 	/**
 	 * sql执行失败重试次数
 	 */
-	private int maxSqlRetryCount = 10;
+	private int maxSqlRetryCount = 20;
 
 	/**
 	 * sql优化最多次数
 	 */
-	private int maxSqlOptimizeCount = 10;
+	private int maxSqlOptimizeCount = 30;
 
 	/**
 	 * sql优化分数阈值
@@ -60,12 +60,12 @@ public class DataAgentProperties {
 	/**
 	 * 最多保留的对话轮数
 	 */
-	private int maxturnhistory = 5;
+	private int maxturnhistory = 10;
 
 	/**
 	 * 单次规划最大长度限制
 	 */
-	private int maxplanlength = 2000;
+	private int maxplanlength = 5000;
 
 	// 每张表的最大预估列数
 	private int maxColumnsPerTable = 50;
