@@ -16,7 +16,14 @@ spring:
       encoding: utf-8
   ai:
     vectorstore:
-      type: simple
+      # 开发环境使用本地 ChromaDB
+      type: chroma
+      chroma:
+        client:
+          host: ${CHROMA_CLIENT_HOST:http://localhost}
+          port: ${CHROMA_CLIENT_PORT:8000}
+        collection-name: ${CHROMA_COLLECTION_NAME:data-agent-collection}
+        initialize-schema: true
     alibaba:
       data-agent:
         vector-store:

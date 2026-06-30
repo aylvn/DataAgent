@@ -313,6 +313,11 @@
             <groupId>org.springframework.ai</groupId>
             <artifactId>spring-ai-starter-vector-store-elasticsearch</artifactId>
         </dependency>
+        <!--        ChromaDB 向量数据库自动配置（持久化）-->
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-vector-store-chroma</artifactId>
+        </dependency>
         <!-- 显式添加Elasticsearch Java客户端依赖以解决DenseVectorSimilarity类缺失问题 -->
         <dependency>
             <groupId>co.elastic.clients</groupId>

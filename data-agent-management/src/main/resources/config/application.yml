@@ -37,7 +37,15 @@ spring:
       encoding: utf-8
   ai:
     vectorstore:
-      type: simple
+      # 向量数据库类型：simple（内存 + JSON序列化）/ chroma（持久化）/ elasticsearch
+      # 生产环境建议使用 chroma 或 elasticsearch
+      type: chroma
+      chroma:
+        client:
+          host: ${CHROMA_CLIENT_HOST:http://localhost}
+          port: ${CHROMA_CLIENT_PORT:8000}
+        collection-name: ${CHROMA_COLLECTION_NAME:data-agent-collection}
+        initialize-schema: true
     alibaba:
       data-agent:
         vector-store:
