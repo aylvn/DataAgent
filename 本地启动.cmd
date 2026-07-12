@@ -6,6 +6,20 @@
 # 2. 复制以下命令并执行
 # ============================================
 
+# chromadb数据库
+
+# 初始化-创建数据库和集合 chromadb数据库启动后执行一次
+# windows
+Invoke-RestMethod -Uri http://localhost:8000/api/v2/tenants/SpringAiTenant/databases -Method Post -ContentType "application/json" -Body '{"name":"SpringAiDatabase"}'
+Invoke-RestMethod -Uri http://localhost:8000/api/v2/tenants/SpringAiTenant/databases/SpringAiDatabase/collections -Method Post -ContentType "application/json" -Body '{"name":"data-agent-collection"}'
+
+# 基础启动
+docker run -d --name chromadb -p 8000:8000 chromadb/chroma
+
+# 带数据持久化
+docker run -d --name chromadb -p 8000:8000 -v D:/chroma-data:/chroma/chroma chromadb/chroma
+
+
 # 设置工作目录
 D:
 cd D:\IdeaProjects\sz-water\data-agent\data-agent-management

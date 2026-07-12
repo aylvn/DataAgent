@@ -17,7 +17,7 @@ spring:
   ai:
     vectorstore:
       # 开发环境使用本地 ChromaDB
-      type: chroma
+      type: simple
       chroma:
         client:
           host: ${CHROMA_CLIENT_HOST:http://localhost}
@@ -28,8 +28,10 @@ spring:
       data-agent:
         vector-store:
           table-topk-limit: 10
+          # simple向量库设置为0.2,chromadb向量库设置为0.1
           table-similarity-threshold: 0.2
           default-topk-limit: 8
+          # simple向量库设置为0.4,chromadb向量库设置为0.2
           default-similarity-threshold: 0.4
         llm-service-type: stream
         code-executor:
