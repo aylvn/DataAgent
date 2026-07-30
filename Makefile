@@ -16,10 +16,11 @@
 
 _run:
 	@$(MAKE) --warn-undefined-variables \
-		-f CI/make/common.mk \
-		-f CI/make/java.mk \
-		-f CI/make/linter.mk \
-		-f CI/make/tools.mk \
+		-f ci/make/common.mk \
+		-f ci/make/java.mk \
+		-f ci/make/linter.mk \
+		-f ci/make/tools.mk \
+
 		$(MAKECMDGOALS)
 
 .PHONY: _run

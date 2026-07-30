@@ -53,7 +53,7 @@ Develop your feature. **After development, we recommend using `mvn clean package
 
 ### Local CI
 
-After completing local development, we strongly recommend running the `make` command provided in the project's `CI\make` directory for local continuous integration (CI) checks before submitting a PR, to ensure the code meets project standards and specifications. If you have any questions about local CI, you can enter `make help` in the console to learn more.
+After completing local development, we strongly recommend running the `make` command provided in the project's `ci\make` directory for local continuous integration (CI) checks before submitting a PR, to ensure the code meets project standards and specifications. If you have any questions about local CI, you can enter `make help` in the console to learn more.
 
 ### Local Checkstyle
 
