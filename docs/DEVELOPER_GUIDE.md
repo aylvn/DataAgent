@@ -30,11 +30,11 @@ cd spring-ai-alibaba-data-agent
 
 2. **配置数据库**
    - 创建 MySQL 数据库
-   - 修改 `data-agent-management/src/main/resources/application.yml` 中的数据库配置
+   - 修改 `backend/src/main/resources/application.yml` 中的数据库配置
 
 3. **启动后端服务**
    ```bash
-   cd data-agent-management
+   cd backend
    ./mvnw spring-boot:run
    ```
 
@@ -42,7 +42,7 @@ cd spring-ai-alibaba-data-agent
 
 1. **安装依赖**
    ```bash
-   cd data-agent-frontend
+   cd frontend
    npm install
    ```
 

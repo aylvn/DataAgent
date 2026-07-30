@@ -22,7 +22,7 @@ docker run -d --name chromadb -p 8000:8000 -v D:/chroma-data:/chroma/chroma chro
 
 # 设置工作目录
 D:
-cd D:\IdeaProjects\sz-water\data-agent\data-agent-management
+cd D:\IdeaProjects\sz-water\data-agent\backend
 
 # 设置 Java 环境
 $env:JAVA_HOME="C:\Program Files\Java\jdk-21"

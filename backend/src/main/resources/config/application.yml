@@ -13,7 +13,7 @@ springdoc:
 # 存储 DataAgent 业务数据的数据库，并非Agent分析数据的来源
 spring:
   application:
-    name: data-agent-management
+    name: backend
   # 启用的配置文件
   profiles:
     active: dev

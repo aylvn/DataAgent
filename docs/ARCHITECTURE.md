@@ -10,7 +10,7 @@
 %%{init: {"theme": "base", "flowchart": {"curve": "basis", "nodeSpacing": 35, "rankSpacing": 45}, "themeVariables": {"lineColor": "#475569", "primaryTextColor": "#1F2937"}}}%%
 flowchart LR
   subgraph Clients[Clients]
-    UserUI[data-agent-frontend UI]
+    UserUI[frontend UI]
     AdminUI[Admin Console]
     MCPClient[MCP Client]
   end
@@ -20,7 +20,7 @@ flowchart LR
     SSE[SSE Stream]
   end
 
-  subgraph Management[data-agent-management Spring Boot]
+  subgraph Management[backend Spring Boot]
     GraphCtl[GraphController]
     AgentCtl[AgentController]
     PromptCtl[PromptConfigController]

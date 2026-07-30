@@ -37,7 +37,7 @@ The DataAgent project currently has minimal test coverage (~12% backend, 0% fron
 ### Test Directory Structure
 
 ```
-data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/
+backend/src/test/java/com/alibaba/cloud/ai/dataagent/
 ├── node/
 │   ├── sql/
 │   │   ├── SqlGenerateNodeTest.java

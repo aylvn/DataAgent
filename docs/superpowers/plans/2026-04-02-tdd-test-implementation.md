@@ -72,23 +72,23 @@ src/test/java/com/alibaba/cloud/ai/dataagent/
 ## Task 1: Delete Fake Test Files
 
 **Files:**
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeCornerCaseTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeAdditionalTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlExecuteNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlExecuteNodeCornerCaseTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonExecuteNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonExecuteNodeCornerCaseTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonAnalyzeNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/rag/EvidenceRecallNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/orchestration/PlannerNodeErrorTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/integration/TextToSqlWorkflowIntegrationTest.java`
-- Delete: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/integration/PythonWorkflowIntegrationTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeCornerCaseTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeAdditionalTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlExecuteNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlExecuteNodeCornerCaseTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonExecuteNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonExecuteNodeCornerCaseTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/python/PythonAnalyzeNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/rag/EvidenceRecallNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/orchestration/PlannerNodeErrorTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/integration/TextToSqlWorkflowIntegrationTest.java`
+- Delete: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/integration/PythonWorkflowIntegrationTest.java`
 
 - [ ] **Step 1: Delete all 12 fake test files**
 
 ```bash
-cd data-agent-management
+cd backend
 rm -f src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeErrorTest.java
 rm -f src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeCornerCaseTest.java
 rm -f src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/sql/SqlGenerateNodeAdditionalTest.java
@@ -105,13 +105,13 @@ rm -f src/test/java/com/alibaba/cloud/ai/dataagent/integration/PythonWorkflowInt
 
 - [ ] **Step 2: Run remaining tests to verify nothing broke**
 
-Run: `./mvnw test -pl data-agent-management`
+Run: `./mvnw test -pl backend`
 Expected: All 5 remaining test files pass (StateUtilSimpleTest, SqlGenerateNodeTest, SqlExecuteNodeTest, PlanExecutorNodeTest, IntentRecognitionNodeTest)
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add -A data-agent-management/src/test/
+git add -A backend/src/test/
 git commit -m "chore: delete 12 fake test files (41 fake methods)
 
 Remove assertTrue(true) stubs, data-only tests, and duplicate tests
@@ -123,7 +123,7 @@ that provided zero coverage of production code."
 ## Task 2: Fix IntentRecognitionNodeTest Compilation
 
 **Files:**
-- Modify: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/IntentRecognitionNodeTest.java`
+- Modify: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/IntentRecognitionNodeTest.java`
 
 - [ ] **Step 1: Add missing imports**
 
@@ -139,13 +139,13 @@ import com.alibaba.cloud.ai.dataagent.enums.TextType;
 
 - [ ] **Step 2: Verify the test compiles and runs**
 
-Run: `./mvnw test -Dtest=IntentRecognitionNodeTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=IntentRecognitionNodeTest -pl backend`
 Expected: All 7 tests pass. If `IntentRecognitionNode` constructor doesn't accept `JsonParseUtil`, adjust the constructor call to match the actual signature.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/IntentRecognitionNodeTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/node/IntentRecognitionNodeTest.java
 git commit -m "fix: add missing imports to IntentRecognitionNodeTest"
 ```
 
@@ -154,7 +154,7 @@ git commit -m "fix: add missing imports to IntentRecognitionNodeTest"
 ## Task 3: Create TestFixtures
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/common/TestFixtures.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/common/TestFixtures.java`
 
 - [ ] **Step 1: Create the shared test fixtures class**
 
@@ -343,13 +343,13 @@ public final class TestFixtures {
 
 - [ ] **Step 2: Verify it compiles**
 
-Run: `./mvnw compile -pl data-agent-management`
+Run: `./mvnw compile -pl backend`
 Expected: BUILD SUCCESS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/common/TestFixtures.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/common/TestFixtures.java
 git commit -m "test: add shared TestFixtures for test data factories"
 ```
 
@@ -358,7 +358,7 @@ git commit -m "test: add shared TestFixtures for test data factories"
 ## Task 4: PlanProcessUtilTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/PlanProcessUtilTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/PlanProcessUtilTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -527,13 +527,13 @@ class PlanProcessUtilTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=PlanProcessUtilTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=PlanProcessUtilTest -pl backend`
 Expected: All 12 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/PlanProcessUtilTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/PlanProcessUtilTest.java
 git commit -m "test: add PlanProcessUtilTest (12 tests)"
 ```
 
@@ -542,7 +542,7 @@ git commit -m "test: add PlanProcessUtilTest (12 tests)"
 ## Task 5: SqlUtilTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/SqlUtilTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/SqlUtilTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -629,13 +629,13 @@ class SqlUtilTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=SqlUtilTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=SqlUtilTest -pl backend`
 Expected: All 9 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/SqlUtilTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/SqlUtilTest.java
 git commit -m "test: add SqlUtilTest (9 tests, all DB dialects)"
 ```
 
@@ -644,7 +644,7 @@ git commit -m "test: add SqlUtilTest (9 tests, all DB dialects)"
 ## Task 6: ApiKeyUtilTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/ApiKeyUtilTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/ApiKeyUtilTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -723,13 +723,13 @@ class ApiKeyUtilTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=ApiKeyUtilTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=ApiKeyUtilTest -pl backend`
 Expected: All 7 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/ApiKeyUtilTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/ApiKeyUtilTest.java
 git commit -m "test: add ApiKeyUtilTest (7 tests)"
 ```
 
@@ -738,7 +738,7 @@ git commit -m "test: add ApiKeyUtilTest (7 tests)"
 ## Task 7: ChatResponseUtilTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/ChatResponseUtilTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/ChatResponseUtilTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -799,13 +799,13 @@ class ChatResponseUtilTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=ChatResponseUtilTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=ChatResponseUtilTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/util/ChatResponseUtilTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/util/ChatResponseUtilTest.java
 git commit -m "test: add ChatResponseUtilTest (4 tests)"
 ```
 
@@ -814,7 +814,7 @@ git commit -m "test: add ChatResponseUtilTest (4 tests)"
 ## Task 8: FeasibilityAssessmentDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/FeasibilityAssessmentDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/FeasibilityAssessmentDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -893,13 +893,13 @@ class FeasibilityAssessmentDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=FeasibilityAssessmentDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=FeasibilityAssessmentDispatcherTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/FeasibilityAssessmentDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/FeasibilityAssessmentDispatcherTest.java
 git commit -m "test: add FeasibilityAssessmentDispatcherTest (4 tests)"
 ```
 
@@ -908,7 +908,7 @@ git commit -m "test: add FeasibilityAssessmentDispatcherTest (4 tests)"
 ## Task 9: HumanFeedbackDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/HumanFeedbackDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/HumanFeedbackDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -985,13 +985,13 @@ class HumanFeedbackDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=HumanFeedbackDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=HumanFeedbackDispatcherTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/HumanFeedbackDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/HumanFeedbackDispatcherTest.java
 git commit -m "test: add HumanFeedbackDispatcherTest (4 tests)"
 ```
 
@@ -1000,7 +1000,7 @@ git commit -m "test: add HumanFeedbackDispatcherTest (4 tests)"
 ## Task 10: IntentRecognitionDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/IntentRecognitionDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/IntentRecognitionDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1085,13 +1085,13 @@ class IntentRecognitionDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=IntentRecognitionDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=IntentRecognitionDispatcherTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/IntentRecognitionDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/IntentRecognitionDispatcherTest.java
 git commit -m "test: add IntentRecognitionDispatcherTest (4 tests)"
 ```
 
@@ -1100,7 +1100,7 @@ git commit -m "test: add IntentRecognitionDispatcherTest (4 tests)"
 ## Task 11: PlanExecutorDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PlanExecutorDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PlanExecutorDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1191,13 +1191,13 @@ class PlanExecutorDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=PlanExecutorDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=PlanExecutorDispatcherTest -pl backend`
 Expected: All 5 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PlanExecutorDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PlanExecutorDispatcherTest.java
 git commit -m "test: add PlanExecutorDispatcherTest (5 tests)"
 ```
 
@@ -1206,7 +1206,7 @@ git commit -m "test: add PlanExecutorDispatcherTest (5 tests)"
 ## Task 12: SemanticConsistenceDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SemanticConsistenceDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SemanticConsistenceDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1274,13 +1274,13 @@ class SemanticConsistenceDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=SemanticConsistenceDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=SemanticConsistenceDispatcherTest -pl backend`
 Expected: All 3 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SemanticConsistenceDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SemanticConsistenceDispatcherTest.java
 git commit -m "test: add SemanticConsistenceDispatcherTest (3 tests)"
 ```
 
@@ -1289,7 +1289,7 @@ git commit -m "test: add SemanticConsistenceDispatcherTest (3 tests)"
 ## Task 13: SQLExecutorDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SQLExecutorDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SQLExecutorDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1359,13 +1359,13 @@ class SQLExecutorDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=SQLExecutorDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=SQLExecutorDispatcherTest -pl backend`
 Expected: All 3 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SQLExecutorDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SQLExecutorDispatcherTest.java
 git commit -m "test: add SQLExecutorDispatcherTest (3 tests)"
 ```
 
@@ -1374,7 +1374,7 @@ git commit -m "test: add SQLExecutorDispatcherTest (3 tests)"
 ## Task 14: SchemaRecallDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SchemaRecallDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SchemaRecallDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1440,13 +1440,13 @@ class SchemaRecallDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=SchemaRecallDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=SchemaRecallDispatcherTest -pl backend`
 Expected: All 2 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SchemaRecallDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SchemaRecallDispatcherTest.java
 git commit -m "test: add SchemaRecallDispatcherTest (2 tests)"
 ```
 
@@ -1455,7 +1455,7 @@ git commit -m "test: add SchemaRecallDispatcherTest (2 tests)"
 ## Task 15: QueryEnhanceDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/QueryEnhanceDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/QueryEnhanceDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1545,13 +1545,13 @@ class QueryEnhanceDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=QueryEnhanceDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=QueryEnhanceDispatcherTest -pl backend`
 Expected: All 4 tests PASS. If `apply_nullOutput_routesToEnd` fails because `StateUtil.getObjectValue` throws instead of returning null, the test should be adjusted to expect the exception instead.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/QueryEnhanceDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/QueryEnhanceDispatcherTest.java
 git commit -m "test: add QueryEnhanceDispatcherTest (4 tests)"
 ```
 
@@ -1560,7 +1560,7 @@ git commit -m "test: add QueryEnhanceDispatcherTest (4 tests)"
 ## Task 16: SqlGenerateDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SqlGenerateDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SqlGenerateDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1649,13 +1649,13 @@ class SqlGenerateDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=SqlGenerateDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=SqlGenerateDispatcherTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SqlGenerateDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/SqlGenerateDispatcherTest.java
 git commit -m "test: add SqlGenerateDispatcherTest (4 tests)"
 ```
 
@@ -1664,7 +1664,7 @@ git commit -m "test: add SqlGenerateDispatcherTest (4 tests)"
 ## Task 17: TableRelationDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/TableRelationDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/TableRelationDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1757,13 +1757,13 @@ class TableRelationDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=TableRelationDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=TableRelationDispatcherTest -pl backend`
 Expected: All 5 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/TableRelationDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/TableRelationDispatcherTest.java
 git commit -m "test: add TableRelationDispatcherTest (5 tests)"
 ```
 
@@ -1772,7 +1772,7 @@ git commit -m "test: add TableRelationDispatcherTest (5 tests)"
 ## Task 18: PythonExecutorDispatcherTest
 
 **Files:**
-- Create: `data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PythonExecutorDispatcherTest.java`
+- Create: `backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PythonExecutorDispatcherTest.java`
 
 - [ ] **Step 1: Write the test file**
 
@@ -1874,13 +1874,13 @@ class PythonExecutorDispatcherTest {
 
 - [ ] **Step 2: Run the test**
 
-Run: `./mvnw test -Dtest=PythonExecutorDispatcherTest -pl data-agent-management`
+Run: `./mvnw test -Dtest=PythonExecutorDispatcherTest -pl backend`
 Expected: All 4 tests PASS
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PythonExecutorDispatcherTest.java
+git add backend/src/test/java/com/alibaba/cloud/ai/dataagent/workflow/dispatcher/PythonExecutorDispatcherTest.java
 git commit -m "test: add PythonExecutorDispatcherTest (4 tests)"
 ```
 
@@ -1893,13 +1893,13 @@ git commit -m "test: add PythonExecutorDispatcherTest (4 tests)"
 
 - [ ] **Step 1: Run all tests**
 
-Run: `./mvnw test -pl data-agent-management`
+Run: `./mvnw test -pl backend`
 Expected: All tests PASS
 
 - [ ] **Step 2: Generate coverage report**
 
-Run: `./mvnw test jacoco:report -pl data-agent-management`
-Expected: Report generated at `data-agent-management/target/site/jacoco/index.html`
+Run: `./mvnw test jacoco:report -pl backend`
+Expected: Report generated at `backend/target/site/jacoco/index.html`
 
 - [ ] **Step 3: Check coverage**
 
@@ -1976,16 +1976,16 @@ After all tasks complete:
 
 ```bash
 # Run all tests
-./mvnw test -pl data-agent-management
+./mvnw test -pl backend
 
 # Generate coverage report
-./mvnw test jacoco:report -pl data-agent-management
+./mvnw test jacoco:report -pl backend
 
 # Check 80% threshold
-./mvnw test jacoco:check -pl data-agent-management
+./mvnw test jacoco:check -pl backend
 
 # View report
-open data-agent-management/target/site/jacoco/index.html
+open backend/target/site/jacoco/index.html
 ```
 
 Expected: 80%+ line coverage, all tests pass, < 5 minutes unit test execution time.

@@ -64,8 +64,8 @@ services:
       context: ..
       dockerfile: ./docker-file/Dockerfile-frontend
       tags:
-        - saa-data-agent-frontend:1.0.0-SNAPSHOT
-    container_name: data-agent-frontend
+        - saa-frontend:1.0.0-SNAPSHOT
+    container_name: frontend
     ports:
       - "3000:3000"  # 只暴露前端端口
     depends_on:

@@ -21,7 +21,7 @@ make test
 ./mvnw test -Dtest=YourTestClass
 
 # Run backend server (use H2 for development)
-cd data-agent-management
+cd backend
 ./mvnw spring-boot:run -Dspring-boot.run.profiles=h2
 
 # Code formatting
@@ -40,7 +40,7 @@ make checkstyle-check
 ### Frontend (Vue 3 / Vite)
 
 ```bash
-cd data-agent-frontend
+cd frontend
 
 # Install dependencies
 npm install
@@ -62,7 +62,7 @@ npm run type-check
 
 ```bash
 # For MySQL (production)
-mysql -u root -p < data-agent-management/src/main/resources/sql/schema.sql
+mysql -u root -p < backend/src/main/resources/sql/schema.sql
 
 # For H2 (development) - auto-initializes via application-h2.yml
 # Access H2 console at: http://localhost:8065/h2-console
@@ -75,8 +75,8 @@ DataAgent is an enterprise-level intelligent data analysis agent built on **Spri
 ### High-Level Structure
 
 ```
-data-agent-management/     # Spring Boot backend (port 8065)
-data-agent-frontend/        # Vue 3 frontend (port 3000)
+backend/     # Spring Boot backend (port 8065)
+frontend/        # Vue 3 frontend (port 3000)
 docs/                      # Documentation
 ```
 

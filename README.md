@@ -72,14 +72,14 @@
 
 ```bash
 # 1. 导入数据库
-mysql -u root -p < data-agent-management/src/main/resources/sql/schema.sql
+mysql -u root -p < backend/src/main/resources/sql/schema.sql
 
 # 2. 启动后端
-cd data-agent-management
-$env:JAVA_HOME="C:\Program Files\Java\jdk-21"; $env:PATH="C:\Program Files\Java\jdk-21\bin;$env:PATH"; cd data-agent-management; ../mvnw spring-boot:run
+cd backend
+$env:JAVA_HOME="C:\Program Files\Java\jdk-21"; $env:PATH="C:\Program Files\Java\jdk-21\bin;$env:PATH"; cd backend; ../mvnw spring-boot:run
 
 # 3. 启动前端
-cd data-agent-frontend
+cd frontend
 npm install && npm run dev
 ```
 

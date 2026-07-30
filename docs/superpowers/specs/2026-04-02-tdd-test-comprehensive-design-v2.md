@@ -52,7 +52,7 @@ This spec defines a bottom-up, phased approach to reach 80%+ backend test covera
 ## Test Directory Structure
 
 ```
-data-agent-management/src/test/java/com/alibaba/cloud/ai/dataagent/
+backend/src/test/java/com/alibaba/cloud/ai/dataagent/
 ├── common/
 │   ├── TestFixtures.java                    # Shared test data factories
 │   ├── ChatResponseUtil.java                # (exists in main, verify accessible)

@@ -1,12 +1,12 @@
 kill -9 $(ps -ef | grep data-agent-management | grep -v grep | awk '{print $2}')
-cd /usr/local/lnxst/sz-water/data-agent-management
+cd /usr/local/lnxst/sz-water/data-agent
 chmod -R 755 ./
 
 # 创建必要的目录
 mkdir -p ./dump
 mkdir -p ./logs
 
-nohup java -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -Xms2048m -Xmx3072m -Xss4m \
+nohup java -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m -Xms2048m -Xmx3072m -Xss1m \
 -XX:+UseZGC -XX:+ZGenerational -XX:+HeapDumpOnOutOfMemoryError \
 -XX:HeapDumpPath=./dump/heapdump.hprof \
 -XX:ErrorFile=./dump/jvm_error.log \
